@@ -1,0 +1,44 @@
+name: Analyze and Test Workflow
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository with source code
+      - uses: actions/checkout@v1
+
+      # Setup java and flutter dependencies
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.17.3'
+
+      # Download project dependencies and run analyze
+      - run: flutter pub get
+      - run: flutter analyze
+
+  test:
+    runs-on: ubuntu-latest
+    needs: analyze
+    steps:
+      # Checkout repository with source code
+      - uses: actions/checkout@v1
+
+      # Setup java and flutter dependencies
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.17.3'
+
+      # Download project dependencies and run analyze
+      - run: flutter pub get
+      - run: flutter test
