@@ -31,14 +31,16 @@ jobs:
       # Checkout repository with source code
       - uses: actions/checkout@v1
 
-      # Setup java and flutter dependencies
+      # Setup java and flutter dependencies. Download tool to create html from code coverage
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.17.3'
+      - run: apt-get update -qq -y && apt-get install lcov -y
 
-      # Download project dependencies and run analyze
+      # Download project dependencies and run analyze with coverage
       - run: flutter pub get
-      - run: flutter test
+      - run: flutter test --coverage
+      - run: genhtml coverage/lcov.info -o coverage/html
