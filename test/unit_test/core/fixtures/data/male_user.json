@@ -1,0 +1,66 @@
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Frederik",
+        "last": "Stenstad"
+      },
+      "location": {
+        "street": {
+          "number": 2391,
+          "name": "Armauer Hansens gate"
+        },
+        "city": "Hyggen",
+        "state": "Møre og Romsdal",
+        "country": "Norway",
+        "postcode": "6139",
+        "coordinates": {
+          "latitude": "54.2094",
+          "longitude": "-178.9387"
+        },
+        "timezone": {
+          "offset": "+3:30",
+          "description": "Tehran"
+        }
+      },
+      "email": "frederik.stenstad@example.com",
+      "login": {
+        "uuid": "4c930560-b882-4268-bd3d-92ec3999b186",
+        "username": "blueswan657",
+        "password": "steph",
+        "salt": "RGHhjAGE",
+        "md5": "240a5c98df21b6edb83c9dfe72a77795",
+        "sha1": "c51c2eabe874af73e3498c383e06b1a33b13c405",
+        "sha256": "f4bd7dd86be5c674b4e1ea7228b113e0bbe3d53a8bc4c0479072a6080f62eac2"
+      },
+      "dob": {
+        "date": "1952-02-22T05:59:33.981Z",
+        "age": 68
+      },
+      "registered": {
+        "date": "2017-10-31T22:36:43.574Z",
+        "age": 3
+      },
+      "phone": "35567153",
+      "cell": "94805497",
+      "id": {
+        "name": "FN",
+        "value": "22025227178"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/81.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/81.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/81.jpg"
+      },
+      "nat": "NO"
+    }
+  ],
+  "info": {
+    "seed": "eec58376a907648b",
+    "results": 1,
+    "page": 1,
+    "version": "1.3"
+  }
+}

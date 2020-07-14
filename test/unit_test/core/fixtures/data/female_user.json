@@ -1,0 +1,66 @@
+{
+  "results": [
+    {
+      "gender": "female",
+      "name": {
+        "title": "Mrs",
+        "first": "Saadia",
+        "last": "Droste"
+      },
+      "location": {
+        "street": {
+          "number": 9548,
+          "name": "De Priorij"
+        },
+        "city": "Greonterp",
+        "state": "Noord-Brabant",
+        "country": "Netherlands",
+        "postcode": 75057,
+        "coordinates": {
+          "latitude": "42.5276",
+          "longitude": "36.4276"
+        },
+        "timezone": {
+          "offset": "+7:00",
+          "description": "Bangkok, Hanoi, Jakarta"
+        }
+      },
+      "email": "saadia.droste@example.com",
+      "login": {
+        "uuid": "c36df548-b9ba-4fb4-a20e-cc1cda7a5e3f",
+        "username": "tinypeacock811",
+        "password": "1960",
+        "salt": "JUN0Uqzh",
+        "md5": "e56159e979e6995cc06405c19592abfd",
+        "sha1": "7d028299fc9467a26ac9bb87716f855f81afc040",
+        "sha256": "e047df17d1739da0abbffdefab1bacb12689572c0ce87a3e6918b0278a9d9911"
+      },
+      "dob": {
+        "date": "1949-05-05T08:17:19.024Z",
+        "age": 71
+      },
+      "registered": {
+        "date": "2015-11-01T10:41:57.154Z",
+        "age": 5
+      },
+      "phone": "(646)-382-9264",
+      "cell": "(968)-133-8143",
+      "id": {
+        "name": "BSN",
+        "value": "28425037"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/women/82.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/women/82.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/women/82.jpg"
+      },
+      "nat": "NL"
+    }
+  ],
+  "info": {
+    "seed": "0f4dbddc72c1f789",
+    "results": 1,
+    "page": 1,
+    "version": "1.3"
+  }
+}
