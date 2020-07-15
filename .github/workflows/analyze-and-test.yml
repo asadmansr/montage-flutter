@@ -1,9 +1,6 @@
 name: Analyze and Test Workflow
 
-on:
-  push:
-    branches:
-      - develop
+on: push
 
 jobs:
   analyze:
@@ -38,7 +35,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.17.3'
-      - run: apt-get update -qq -y && apt-get install lcov -y
+      - run: sudo apt-get update -qq -y && sudo apt-get install lcov -y
 
       # Download project dependencies and run analyze with coverage
       - run: flutter pub get
