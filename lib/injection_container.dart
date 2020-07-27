@@ -6,7 +6,7 @@ import 'package:montageapp/features/random_user/data/data_source/user_remote_dat
 import 'package:montageapp/features/random_user/data/repository/user_repository_impl.dart';
 import 'package:montageapp/features/random_user/domain/repository/user_repository.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
-import 'package:montageapp/features/random_user/presentation/user_bloc.dart';
+import 'package:montageapp/features/random_user/presentation/bloc/user_bloc.dart';
 
 final sl = GetIt.instance;
 

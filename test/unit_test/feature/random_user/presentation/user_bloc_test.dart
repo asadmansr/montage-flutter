@@ -5,7 +5,7 @@ import 'package:montageapp/core/error/failure.dart';
 import 'package:montageapp/core/use_case/no_params.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
-import 'package:montageapp/features/random_user/presentation/user_bloc.dart';
+import 'package:montageapp/features/random_user/presentation/bloc/user_bloc.dart';
 
 class MockGetUser extends Mock implements GetUser {}
 
