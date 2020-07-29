@@ -24,4 +24,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  assets:
+    - assets/man_1.png
+    - assets/man_2.png
+    - assets/man_3.png
+    - assets/man_4.png
+    - assets/man_5.png
+    - assets/man_6.png
+    - assets/man_7.png
+    - assets/woman_1.png
+    - assets/woman_2.png
+    - assets/woman_3.png
+    - assets/woman_4.png
+    - assets/woman_5.png
+    - assets/woman_6.png
+    - assets/woman_7.png
