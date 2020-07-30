@@ -11,6 +11,7 @@ abstract class UserRemoteDataSource {
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final _url = 'https://randomuser.me/api/';
+  final _param = "?nat=au,br,ca,ch,de,dk,fi,fr,gb,ei,nl,nz,us";
   final _headers = {'Content-Type': 'application/json'};
   final http.Client client;
 
@@ -22,7 +23,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   Future<UserModel> _getUserFromUrl() async {
-    final response = await client.get(_url, headers: _headers);
+    final response = await client.get(_url + _param, headers: _headers);
     if (response.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(response.body));
     } else {

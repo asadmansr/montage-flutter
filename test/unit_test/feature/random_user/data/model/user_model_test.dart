@@ -5,22 +5,35 @@ import 'package:montageapp/features/random_user/data/model/user_model.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
 import '../../../../core/fixtures/fixture_reader.dart';
+import '../../../../core/helper/user_assertion.dart';
 
 void main() {
+
+  UserAssertions userAssertions;
 
   final tMaleUserModel = UserModel(
       name: "Frederik Stenstad",
       email: "frederik.stenstad@example.com",
       userName: "blueswan657",
       password: "steph",
-      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway");
+      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
+      gender: "male",
+      imgUrl: "assets/man_1.png"
+  );
 
   final tFemaleUserModel = UserModel(
       name: "Saadia Droste",
       email: "saadia.droste@example.com",
       userName: "tinypeacock811",
       password: "1960",
-      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands");
+      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
+      gender: "female",
+      imgUrl: "assets/woman_1.png"
+  );
+
+  setUp((){
+    userAssertions = UserAssertions();
+  });
 
   group('userModel should return a valid User object', () {
     test('user model should return User type', () async {
@@ -33,14 +46,16 @@ void main() {
       final Map<String, dynamic> jsonMap = json.decode(fixture("male_user.json"));
       final result = UserModel.fromJson(jsonMap);
 
-      expect(result, tMaleUserModel);
+      final actual = userAssertions.assertUserModel(result, tMaleUserModel);
+      expect(actual, true);
     });
 
     test('should get valid user object for female user', () async {
       final Map<String, dynamic> jsonMap = json.decode(fixture("female_user.json"));
       final result = UserModel.fromJson(jsonMap);
 
-      expect(result, tFemaleUserModel);
+      final actual = userAssertions.assertUserModel(result, tFemaleUserModel);
+      expect(actual, true);
     });
   });
 
@@ -53,7 +68,9 @@ void main() {
         'email': "frederik.stenstad@example.com",
         'userName': "blueswan657",
         'password': "steph",
-        'address': "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway"
+        'address': "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
+        'gender': "male",
+        'imgUrl': "assets/man_1.png"
       };
 
       expect(result, expectedJsonMap);
@@ -67,7 +84,9 @@ void main() {
         'email': "saadia.droste@example.com",
         'userName': "tinypeacock811",
         'password': "1960",
-        'address': "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands"
+        'address': "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
+        'gender': "female",
+        'imgUrl': "assets/woman_1.png"
       };
 
       expect(result, expectedJsonMap);

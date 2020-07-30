@@ -30,14 +30,20 @@ void main() {
         email: "john@example.com",
         userName: "john123",
         password: "johnPassword",
-        address: "123 example st, City State");
+        address: "123 example st, City State",
+        gender: "male",
+        imgUrl: "assets/man_1.png"
+    );
 
     final tUserB = User(
         name: "Alice Smith",
         email: "alice@example.com",
         userName: "alice!@#",
         password: "aSJDIW@KSd293",
-        address: "123 town rd, City State");
+        address: "123 town rd, City State",
+        gender: "male",
+        imgUrl: "assets/man_1.png"
+    );
 
     test('Bloc should call the GetUser use case for UserA', () async {
       when(mockGetUser(any)).thenAnswer((_) async => Right(tUserA));

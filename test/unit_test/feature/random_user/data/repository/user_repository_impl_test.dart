@@ -10,6 +10,8 @@ import 'package:montageapp/features/random_user/data/model/user_model.dart';
 import 'package:montageapp/features/random_user/data/repository/user_repository_impl.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
+import '../../../../core/helper/user_assertion.dart';
+
 class MockRemoteDataSource extends Mock implements UserRemoteDataSource {}
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
@@ -17,10 +19,12 @@ void main() {
   UserRepositoryImpl userRepository;
   MockRemoteDataSource mockRemoteDataSource;
   MockNetworkInfo mockNetworkInfo;
+  UserAssertions userAssertions;
 
   setUp(() {
     mockRemoteDataSource = MockRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
+    userAssertions = UserAssertions();
 
     userRepository = UserRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,
@@ -33,14 +37,20 @@ void main() {
       email: "frederik.stenstad@example.com",
       userName: "blueswan657",
       password: "steph",
-      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway");
+      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
+      gender: "male",
+      imgUrl: "assets/man_1.png"
+  );
 
   final tFemaleUserModel = UserModel(
       name: "Saadia Droste",
       email: "saadia.droste@example.com",
       userName: "tinypeacock811",
       password: "1960",
-      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands");
+      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
+      gender: "male",
+      imgUrl: "assets/man_1.png"
+  );
 
   final User tMaleUser = tMaleUserModel;
   final User tFemaleUser = tFemaleUserModel;
@@ -61,6 +71,8 @@ void main() {
       verify(mockRemoteDataSource.getUser());
       verify(mockNetworkInfo.isConnected);
       expect(result, equals(Right(tMaleUser)));
+      final actual = userAssertions.assertUserModel(result.getOrElse(null), tMaleUserModel);
+      expect(actual, true);
     });
 
     test('should return valid female user when server response is success', () async {
@@ -72,6 +84,8 @@ void main() {
       verify(mockRemoteDataSource.getUser());
       verify(mockNetworkInfo.isConnected);
       expect(result, equals(Right(tFemaleUser)));
+      final actual = userAssertions.assertUserModel(result.getOrElse(null), tFemaleUserModel);
+      expect(actual, true);
     });
 
     test('should return ServerFailure when server response is failure', () async {

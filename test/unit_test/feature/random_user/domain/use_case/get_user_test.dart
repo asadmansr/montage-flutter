@@ -7,15 +7,19 @@ import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/domain/repository/user_repository.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
 
+import '../../../../core/helper/user_assertion.dart';
+
 class MockUserRepository extends Mock implements UserRepository {}
 
 void main() {
   GetUser getUserUseCase;
   MockUserRepository mockUserRepository;
+  UserAssertions userAssertions;
 
   setUp(() {
     mockUserRepository = MockUserRepository();
     getUserUseCase = GetUser(mockUserRepository);
+    userAssertions = UserAssertions();
   });
 
   group('getUserUseCase should return an User object on success', () {
@@ -24,21 +28,29 @@ void main() {
         email: "john@example.com",
         userName: "john123",
         password: "johnPassword",
-        address: "123 example st, City State");
+        address: "123 example st, City State",
+        gender: "male",
+        imgUrl: "assets/man_1.png"
+    );
 
     final tUserB = User(
         name: "Alice Smith",
         email: "alice@example.com",
         userName: "alice!@#",
         password: "aSJDIW@KSd293",
-        address: "123 town rd, City State");
+        address: "123 town rd, City State",
+        gender: "male",
+        imgUrl: "assets/man_1.png"
+    );
 
     test('should get valid UserB object from repository', () async {
       when(mockUserRepository.getUser()).thenAnswer((_) async => Right(tUserA));
 
       final result = await getUserUseCase(NoParams());
+      final actual = userAssertions.assertUser(result.getOrElse(null), tUserA);
 
       expect(result, Right(tUserA));
+      expect(actual, true);
       verify(mockUserRepository.getUser());
       verifyNoMoreInteractions(mockUserRepository);
     });
@@ -47,8 +59,10 @@ void main() {
       when(mockUserRepository.getUser()).thenAnswer((_) async => Right(tUserB));
 
       final result = await getUserUseCase(NoParams());
+      final actual = userAssertions.assertUser(result.getOrElse(null), tUserB);
 
       expect(result, Right(tUserB));
+      expect(actual, true);
       verify(mockUserRepository.getUser());
       verifyNoMoreInteractions(mockUserRepository);
     });

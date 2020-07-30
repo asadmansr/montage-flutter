@@ -7,16 +7,19 @@ import 'package:montageapp/features/random_user/data/data_source/user_remote_dat
 import 'package:montageapp/features/random_user/data/model/user_model.dart';
 
 import '../../../../core/fixtures/fixture_reader.dart';
+import '../../../../core/helper/user_assertion.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
   UserRemoteDataSourceImpl userRemoteDataSourceImpl;
   MockHttpClient mockHttpClient;
+  UserAssertions userAssertions;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
     userRemoteDataSourceImpl = UserRemoteDataSourceImpl(client: mockHttpClient);
+    userAssertions = UserAssertions();
   });
 
   final tMaleUserModel = UserModel(
@@ -24,16 +27,22 @@ void main() {
       email: "frederik.stenstad@example.com",
       userName: "blueswan657",
       password: "steph",
-      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway");
+      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
+      gender: "male",
+      imgUrl: "assets/man_1.png"
+  );
 
   final tFemaleUserModel = UserModel(
       name: "Saadia Droste",
       email: "saadia.droste@example.com",
       userName: "tinypeacock811",
       password: "1960",
-      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands");
+      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
+      gender: "female",
+      imgUrl: "assets/woman_1.png"
+  );
 
-  final url = 'https://randomuser.me/api/';
+  final url = 'https://randomuser.me/api/?nat=au,br,ca,ch,de,dk,fi,fr,gb,ei,nl,nz,us';
   final headers = {'Content-Type': 'application/json'};
 
   group('user remote data source returning successful http GET', () {
@@ -58,7 +67,8 @@ void main() {
           .thenAnswer((_) async => http.Response(fixture('male_user.json'), 200));
 
       final result = await userRemoteDataSourceImpl.getUser();
-      expect(result, equals(tMaleUserModel));
+      final actual = userAssertions.assertUserModel(result, tMaleUserModel);
+      expect(actual, true);
     });
 
     test('user data source should return valid female user model upon success', () async {
@@ -66,7 +76,9 @@ void main() {
               (_) async => http.Response(fixture('female_user.json'), 200));
 
       final result = await userRemoteDataSourceImpl.getUser();
-      expect(result, equals(tFemaleUserModel));
+      final actual = userAssertions.assertUserModel(result, tFemaleUserModel);
+      expect(actual, true);
+      //expect(result, equals(tFemaleUserModel));
     });
   });
 
