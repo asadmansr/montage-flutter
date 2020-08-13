@@ -22,8 +22,9 @@ void main() {
     userList = [tUserA, tUserB];
   });
 
-  group(' ', () {
-    test('', () async {
+  group('Should return a valid user list from repository', () {
+    test('should return valid user list when use_case calls the repository',
+        () async {
       when(mockUserListRepository.getUserList())
           .thenAnswer((_) async => Right(userList));
 
@@ -38,8 +39,10 @@ void main() {
     });
   });
 
-  group(' ', () {
-    test('', () async {
+  group('Should return a valid failure from repository', () {
+    test(
+        'Should return a cache failure when repository returns a cache failure',
+        () async {
       when(mockUserListRepository.getUserList())
           .thenAnswer((_) async => Left(CacheFailure()));
 
