@@ -1,27 +1,9 @@
 import 'package:montageapp/features/random_user/data/model/user_model.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
+import '../dataset/test_data.dart';
+
 class UserAssertions {
-  final List _assetsMaleUrl = [
-    "assets/man_1.png",
-    "assets/man_2.png",
-    "assets/man_3.png",
-    "assets/man_4.png",
-    "assets/man_5.png",
-    "assets/man_6.png",
-    "assets/man_7.png"
-  ];
-
-  final List _assetsFemaleUrl = [
-    "assets/woman_1.png",
-    "assets/woman_2.png",
-    "assets/woman_3.png",
-    "assets/woman_4.png",
-    "assets/woman_5.png",
-    "assets/woman_6.png",
-    "assets/woman_7.png"
-  ];
-
   bool assertUserModel(UserModel actual, UserModel expected) {
     return _assertHelper(actual, expected);
   }
@@ -44,9 +26,9 @@ class UserAssertions {
 
   bool _assertImgUrlHelper(String gender, String imgUrl) {
     if (gender == "male") {
-      return _assetsMaleUrl.contains(imgUrl);
+      return assetsMaleUrl.contains(imgUrl);
     } else {
-      return _assetsFemaleUrl.contains(imgUrl);
+      return assetsFemaleUrl.contains(imgUrl);
     }
   }
 }

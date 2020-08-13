@@ -4,34 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:montageapp/features/random_user/data/model/user_model.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
+import '../../../../core/dataset/test_data.dart';
 import '../../../../core/fixtures/fixture_reader.dart';
 import '../../../../core/helper/user_assertion.dart';
 
 void main() {
-
   UserAssertions userAssertions;
 
-  final tMaleUserModel = UserModel(
-      name: "Frederik Stenstad",
-      email: "frederik.stenstad@example.com",
-      userName: "blueswan657",
-      password: "steph",
-      address: "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
-      gender: "male",
-      imgUrl: "assets/man_1.png"
-  );
-
-  final tFemaleUserModel = UserModel(
-      name: "Saadia Droste",
-      email: "saadia.droste@example.com",
-      userName: "tinypeacock811",
-      password: "1960",
-      address: "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
-      gender: "female",
-      imgUrl: "assets/woman_1.png"
-  );
-
-  setUp((){
+  setUp(() {
     userAssertions = UserAssertions();
   });
 
@@ -43,7 +23,8 @@ void main() {
 
   group('userModel should return a valid fromJson representation', () {
     test('should get valid user object for male user', () async {
-      final Map<String, dynamic> jsonMap = json.decode(fixture("male_user.json"));
+      final Map<String, dynamic> jsonMap =
+          json.decode(fixture("male_user.json"));
       final result = UserModel.fromJson(jsonMap);
 
       final actual = userAssertions.assertUserModel(result, tMaleUserModel);
@@ -51,7 +32,8 @@ void main() {
     });
 
     test('should get valid user object for female user', () async {
-      final Map<String, dynamic> jsonMap = json.decode(fixture("female_user.json"));
+      final Map<String, dynamic> jsonMap =
+          json.decode(fixture("female_user.json"));
       final result = UserModel.fromJson(jsonMap);
 
       final actual = userAssertions.assertUserModel(result, tFemaleUserModel);

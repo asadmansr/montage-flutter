@@ -3,9 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:montageapp/core/error/failure.dart';
 import 'package:montageapp/core/use_case/no_params.dart';
-import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
 import 'package:montageapp/features/random_user/presentation/bloc/user_bloc.dart';
+
+import '../../../core/dataset/test_data.dart';
 
 class MockGetUser extends Mock implements GetUser {}
 
@@ -25,26 +26,6 @@ void main() {
   });
 
   group('State should return valid User object', () {
-    final tUserA = User(
-        name: "john smith",
-        email: "john@example.com",
-        userName: "john123",
-        password: "johnPassword",
-        address: "123 example st, City State",
-        gender: "male",
-        imgUrl: "assets/man_1.png"
-    );
-
-    final tUserB = User(
-        name: "Alice Smith",
-        email: "alice@example.com",
-        userName: "alice!@#",
-        password: "aSJDIW@KSd293",
-        address: "123 town rd, City State",
-        gender: "male",
-        imgUrl: "assets/man_1.png"
-    );
-
     test('Bloc should call the GetUser use case for UserA', () async {
       when(mockGetUser(any)).thenAnswer((_) async => Right(tUserA));
       bloc.add(GetUserEvent());
@@ -61,7 +42,8 @@ void main() {
       verify(mockGetUser(NoParams()));
     });
 
-    test('GetUserEvent should follow [Empty, Loading, Loaded] for UserA', () async {
+    test('GetUserEvent should follow [Empty, Loading, Loaded] for UserA',
+        () async {
       when(mockGetUser(any)).thenAnswer((_) async => Right(tUserA));
       final expected = [Empty(), Loading(), Loaded(user: tUserA)];
 
@@ -69,7 +51,8 @@ void main() {
       bloc.add(GetUserEvent());
     });
 
-    test('GetUserEvent should follow [Empty, Loading, Loaded] for UserB', () async {
+    test('GetUserEvent should follow [Empty, Loading, Loaded] for UserB',
+        () async {
       when(mockGetUser(any)).thenAnswer((_) async => Right(tUserB));
       final expected = [Empty(), Loading(), Loaded(user: tUserB)];
 
@@ -103,7 +86,8 @@ void main() {
       bloc.add(GetUserEvent());
     });
 
-    test('RandomFailure should return [Error] with unexpected message', () async {
+    test('RandomFailure should return [Error] with unexpected message',
+        () async {
       when(mockGetUser(any)).thenAnswer((_) async => Left(RandomFailure()));
       final expected = [
         Empty(),
