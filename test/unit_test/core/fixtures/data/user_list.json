@@ -1,0 +1,22 @@
+{
+  "list": [
+    {
+      "name": "Frederik Stenstad",
+      "email": "frederik.stenstad@example.com",
+      "userName": "blueswan657",
+      "password": "steph",
+      "address": "2391 Armauer Hansens gate, Hyggen, Møre og Romsdal, Norway",
+      "gender": "male",
+      "imgUrl": "assets/man_1.png"
+    },
+    {
+      "name": "Saadia Droste",
+      "email": "saadia.droste@example.com",
+      "userName": "tinypeacock811",
+      "password": "1960",
+      "address": "9548 De Priorij, Greonterp, Noord-Brabant, Netherlands",
+      "gender": "female",
+      "imgUrl": "assets/woman_1.png"
+    }
+  ]
+}
