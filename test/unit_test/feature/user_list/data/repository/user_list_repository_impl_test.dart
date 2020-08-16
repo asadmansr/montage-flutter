@@ -52,4 +52,27 @@ void main() {
       expect(result, equals(Left(CacheFailure())));
     });
   });
+
+  group('Should perform valid save operations in data source', () {
+    List<User> userList = [tUserA, tUserB];
+
+    test('Should be able to save list in the data source', () async {
+      when(mockUserListDataSource.cacheUserList(any))
+        ..thenAnswer((_) async => Right(null));
+
+      await userListRepositoryImpl.saveUserList(userList);
+
+      verify(mockUserListDataSource.cacheUserList(userList));
+    });
+
+    test('Should be able to return failure if save is not successful', () async {
+      when(mockUserListDataSource.cacheUserList(any))
+          .thenThrow(CacheException());
+
+      final result = await userListRepositoryImpl.saveUserList(userList);
+
+      verify(mockUserListDataSource.cacheUserList(userList));
+      expect(result, equals(Left(CacheFailure())));
+    });
+  });
 }

@@ -20,4 +20,13 @@ class UserListRepositoryImpl extends UserListRepository {
       return Left(CacheFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> saveUserList(List<User> userList) async {
+    try {
+      return Right(await userListDataSource.cacheUserList(userList));
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
 }
