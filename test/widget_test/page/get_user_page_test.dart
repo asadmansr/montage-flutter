@@ -39,5 +39,5 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byIcon(Icons.refresh), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
-  });
+  }, skip: true);
 }

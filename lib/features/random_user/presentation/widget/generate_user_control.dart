@@ -26,14 +26,14 @@ class _GenerateUserControlState extends State<GenerateUserControl> {
             size: 24.0,
             color: Colors.white,
           ),
-          onPressed: dispatchGetUser,
+          onPressed: _dispatchGetUser,
         ),
-        SizedBox(width: 16)
+        SizedBox(height: 64)
       ],
     );
   }
 
-  void dispatchGetUser() {
+  void _dispatchGetUser() {
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());
   }
 }
