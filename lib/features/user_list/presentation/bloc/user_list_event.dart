@@ -11,3 +11,12 @@ abstract class UserListEvent extends Equatable {
 }
 
 class GetUserListEvent extends UserListEvent {}
+
+class SaveUserListEvent extends UserListEvent {
+  final List<User> userList;
+
+  SaveUserListEvent([this.userList]);
+
+  @override
+  List<Object> get props => this.userList;
+}

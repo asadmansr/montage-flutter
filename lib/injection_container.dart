@@ -13,16 +13,18 @@ import 'features/user_list/data/data_source/user_list_data_source.dart';
 import 'features/user_list/data/repository/user_list_repository_impl.dart';
 import 'features/user_list/domain/repository/user_list_repository.dart';
 import 'features/user_list/domain/use_case/get_user_list.dart';
+import 'features/user_list/domain/use_case/save_user_list.dart';
 import 'features/user_list/presentation/bloc/user_list_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   sl.registerFactory(() => UserBloc(user: sl()));
-  sl.registerFactory(() => UserListBloc(userList: sl()));
+  sl.registerFactory(() => UserListBloc(userList: sl(), saveUserList: sl()));
 
   sl.registerLazySingleton(() => GetUser(sl()));
   sl.registerLazySingleton(() => GetUserList(sl()));
+  sl.registerLazySingleton(() => SaveUserList(sl()));
 
   sl.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(networkInfo: sl(), remoteDataSource: sl()));

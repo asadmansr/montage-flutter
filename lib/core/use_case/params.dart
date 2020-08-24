@@ -8,5 +8,5 @@ class Params extends Equatable {
   Params({@required this.list});
 
   @override
-  List<Object> get props => [list];
+  List<Object> get props => list;
 }

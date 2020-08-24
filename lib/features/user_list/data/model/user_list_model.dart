@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
 class UserListModel {
-  final List<User> userList = List<User>();
 
   List<User> getParsedUserList(Map<String, dynamic> cachedJson) {
+    final List<User> _userList = List<User>();
     var jsonList = cachedJson['list'] as List;
     jsonList.forEach((element) {
       final User user = _getUserProperty(element);
-      userList.add(user);
+      _userList.add(user);
     });
-    return userList;
+    return _userList;
   }
 
   User _getUserProperty(Map<String, dynamic> userJson) {

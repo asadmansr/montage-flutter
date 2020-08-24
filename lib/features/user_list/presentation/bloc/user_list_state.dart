@@ -9,6 +9,8 @@ class Empty extends UserListState {}
 
 class Loading extends UserListState {}
 
+class Refresh extends UserListState {}
+
 class Loaded extends UserListState {
   final List<User> userList;
 

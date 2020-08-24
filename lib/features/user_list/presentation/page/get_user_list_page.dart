@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/presentation/page/get_user_page.dart';
+import 'package:montageapp/features/random_user/presentation/widget/empty_display.dart';
+import 'package:montageapp/features/random_user/presentation/widget/loading_display.dart';
 import 'package:montageapp/features/random_user/presentation/widget/message_display.dart';
 import 'package:montageapp/features/user_list/presentation/bloc/user_list_bloc.dart';
+import 'package:montageapp/features/user_list/presentation/widget/generate_user_list.dart';
 
 import '../../../../injection_container.dart';
 
-class GetUserListPage extends StatelessWidget {
+class GetUserListPage extends StatefulWidget {
+  @override
+  _GetUserListPageState createState() => _GetUserListPageState();
+}
+
+class _GetUserListPageState extends State<GetUserListPage> {
+  List<User> userList = List<User>();
+
   @override
   Widget build(BuildContext context) {
     return buildBody(context);
@@ -22,30 +32,34 @@ class GetUserListPage extends StatelessWidget {
               body: Container(
                   color: Color.fromRGBO(38, 38, 47, 1.0),
                   child: Column(
-                  children: <Widget>[
-                    BlocBuilder<UserListBloc, UserListState>(
-                        builder: (context, state) {
-                          if (state is Loading) {
-                            return MessageDisplay(message: state.toString());
-                          } else if (state is Loaded) {
-                            return MessageDisplay(message: state.toString());
-                          } else if (state is Error){
-                            return MessageDisplay(message: "");
-                            //return MessageDisplay(message: state.toString());
-                          } else {
-                            BlocProvider.of<UserListBloc>(providerContext).add(
-                                GetUserListEvent()
-                            );
-                            return MessageDisplay(message: state.toString());
-                          }
+                    children: <Widget>[
+                      BlocBuilder<UserListBloc, UserListState>(
+                          builder: (context, state) {
+                        if (state is Loading) {
+                          return LoadingDisplay();
+                        } else if (state is Loaded) {
+                          userList = state.userList;
+                          return GenerateUserList(userList: userList);
+                        } else if (state is Error) {
+                          return EmptyDisplay();
+                        } else if (state is Refresh) {
+                          _dispatchGetListEvent(providerContext);
+                          return EmptyDisplay();
+                        } else {
+                          _dispatchGetListEvent(providerContext);
+                          return EmptyDisplay();
                         }
-                    ),
-                  ],
-                )
+                      }),
+                    ],
+                  )
               )
           );
         })
     );
+  }
+
+  void _dispatchGetListEvent(BuildContext providerContext) {
+    BlocProvider.of<UserListBloc>(providerContext).add(GetUserListEvent());
   }
 
   Widget _fab(BuildContext providerContext) {
@@ -58,13 +72,17 @@ class GetUserListPage extends StatelessWidget {
     );
   }
 
-  _navigateAndGenerateUser(BuildContext context) async {
+  void _navigateAndGenerateUser(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GetUserPage()),
     );
 
     final user = result as User;
-    print(user.name);
+
+    if (user != null){
+      userList.add(user);
+      BlocProvider.of<UserListBloc>(context).add(SaveUserListEvent(userList));
+    }
   }
 }
