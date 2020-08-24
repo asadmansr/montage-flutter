@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
+import 'package:montageapp/core/constants/colors.dart' as Color;
 
 class GenerateUserList extends StatelessWidget {
   final List<User> userList;
@@ -21,12 +22,12 @@ class GenerateUserList extends StatelessWidget {
                     return ListTile(
                         title: Text(
                           '${userList[index].name}',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Color.whiteColor),
                         ),
                         subtitle: Text('${userList[index].email}',
-                            style: TextStyle(color: Colors.grey[350])),
+                            style: TextStyle(color: Color.greyColor)),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Color.greyColor,
                           child: Image.asset(userList[index].imgUrl),
                         )
                     );

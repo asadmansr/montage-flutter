@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:montageapp/core/constants/colors.dart' as Color;
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
 class GenerateUserDisplay extends StatelessWidget {
@@ -9,22 +10,21 @@ class GenerateUserDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Color.fromRGBO(38, 38, 47, 1.0),
+        color: Color.backgroundColor,
         child: Column(
           children: <Widget>[
             SizedBox(
               height: 48,
             ),
             CircleAvatar(
-                backgroundColor: Color.fromRGBO(41, 41, 51, 1.0),
+                backgroundColor: Color.backgroundAccentColor,
                 radius: 96,
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Image(
                     image: AssetImage(this.user.imgUrl),
                   ),
-                )
-            ),
+                )),
             SizedBox(
               height: 16,
             ),
@@ -32,13 +32,11 @@ class GenerateUserDisplay extends StatelessWidget {
               padding: const EdgeInsets.only(left: 24.0, right: 24.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.white),
-                  enabledBorder: new UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(78, 78, 88, 1.0))
-                  )
-                ),
-                style: TextStyle(color: Colors.white),
+                    labelText: 'Name',
+                    labelStyle: TextStyle(color: Color.whiteColor),
+                    enabledBorder: new UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color.formBorderColor))),
+                style: TextStyle(color: Color.whiteColor),
                 readOnly: true,
                 initialValue: this.user.name,
               ),
@@ -47,13 +45,11 @@ class GenerateUserDisplay extends StatelessWidget {
               padding: const EdgeInsets.only(left: 24.0, right: 24.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: Colors.white),
-                  enabledBorder: new UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromRGBO(78, 78, 88, 1.0))
-                  )
-                ),
-                style: TextStyle(color: Colors.white),
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Color.whiteColor),
+                    enabledBorder: new UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color.formBorderColor))),
+                style: TextStyle(color: Color.whiteColor),
                 readOnly: true,
                 initialValue: this.user.email,
               ),

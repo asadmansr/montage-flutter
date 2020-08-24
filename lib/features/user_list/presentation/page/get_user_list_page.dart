@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montageapp/core/constants/colors.dart' as Color;
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/presentation/page/get_user_page.dart';
-import 'package:montageapp/features/random_user/presentation/widget/empty_display.dart';
-import 'package:montageapp/features/random_user/presentation/widget/loading_display.dart';
-import 'package:montageapp/features/random_user/presentation/widget/message_display.dart';
+import 'package:montageapp/core/widgets/empty_display.dart';
+import 'package:montageapp/core/widgets/loading_display.dart';
 import 'package:montageapp/features/user_list/presentation/bloc/user_list_bloc.dart';
 import 'package:montageapp/features/user_list/presentation/widget/generate_user_list.dart';
 
@@ -30,7 +30,7 @@ class _GetUserListPageState extends State<GetUserListPage> {
           return Scaffold(
               floatingActionButton: _fab(providerContext),
               body: Container(
-                  color: Color.fromRGBO(38, 38, 47, 1.0),
+                  color: Color.backgroundColor,
                   child: Column(
                     children: <Widget>[
                       BlocBuilder<UserListBloc, UserListState>(
@@ -64,7 +64,7 @@ class _GetUserListPageState extends State<GetUserListPage> {
 
   Widget _fab(BuildContext providerContext) {
     return FloatingActionButton(
-      backgroundColor: Colors.green,
+      backgroundColor: Color.greenColor,
       child: Icon(Icons.add),
       onPressed: () {
         _navigateAndGenerateUser(providerContext);
@@ -80,7 +80,7 @@ class _GetUserListPageState extends State<GetUserListPage> {
 
     final user = result as User;
 
-    if (user != null){
+    if (user != null) {
       userList.add(user);
       BlocProvider.of<UserListBloc>(context).add(SaveUserListEvent(userList));
     }

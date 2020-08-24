@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:montageapp/features/random_user/presentation/widget/empty_display.dart';
+import 'package:montageapp/core/widgets/empty_display.dart';
 
 import '../../unit_test/core/helper/testable_widget.dart';
 
