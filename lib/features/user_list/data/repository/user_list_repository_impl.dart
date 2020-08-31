@@ -3,28 +3,19 @@ import 'package:meta/meta.dart';
 import 'package:montageapp/core/error/exception.dart';
 import 'package:montageapp/core/error/failure.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
-import 'package:montageapp/features/user_list/data/data_source/user_list_data_source.dart';
+import 'package:montageapp/features/user_list/data/data_source/user_list_local_data_source.dart';
 import 'package:montageapp/features/user_list/domain/repository/user_list_repository.dart';
 
 class UserListRepositoryImpl extends UserListRepository {
-  final UserListDataSource userListDataSource;
+  final UserListLocalDataSource userListLocalDataSource;
 
-  UserListRepositoryImpl({@required this.userListDataSource});
+  UserListRepositoryImpl({@required this.userListLocalDataSource});
 
   @override
   Future<Either<Failure, List<User>>> getUserList() async {
     try {
-      final userList = await userListDataSource.getUserList();
+      final userList = await userListLocalDataSource.getUserList();
       return Right(userList);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> saveUserList(List<User> userList) async {
-    try {
-      return Right(await userListDataSource.cacheUserList(userList));
     } on CacheException {
       return Left(CacheFailure());
     }

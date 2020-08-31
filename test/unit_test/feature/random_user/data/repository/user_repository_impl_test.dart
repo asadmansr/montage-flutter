@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:montageapp/core/error/exception.dart';
 import 'package:montageapp/core/error/failure.dart';
 import 'package:montageapp/core/network/network_info.dart';
+import 'package:montageapp/features/random_user/data/data_source/user_local_data_source.dart';
 import 'package:montageapp/features/random_user/data/data_source/user_remote_data_source.dart';
 import 'package:montageapp/features/random_user/data/repository/user_repository_impl.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
@@ -13,21 +14,27 @@ import '../../../../core/helper/user_assertion.dart';
 
 class MockRemoteDataSource extends Mock implements UserRemoteDataSource {}
 
+class MockLocalDataSource extends Mock implements UserLocalDataSource {}
+
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 void main() {
   UserRepositoryImpl userRepository;
   MockRemoteDataSource mockRemoteDataSource;
+  MockLocalDataSource mockLocalDataSource;
   MockNetworkInfo mockNetworkInfo;
   UserAssertions userAssertions;
 
   setUp(() {
     mockRemoteDataSource = MockRemoteDataSource();
+    mockLocalDataSource = MockLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     userAssertions = UserAssertions();
 
     userRepository = UserRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+        remoteDataSource: mockRemoteDataSource,
+        networkInfo: mockNetworkInfo,
+        localDataSource: mockLocalDataSource);
   });
 
   final User tMaleUser = tMaleUserModel;

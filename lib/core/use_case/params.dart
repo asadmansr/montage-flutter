@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
 class Params extends Equatable {
-  final List<User> list;
+  final User user;
 
-  Params({@required this.list});
+  Params({@required this.user});
 
   @override
-  List<Object> get props => list;
+  List<Object> get props => [user];
 }

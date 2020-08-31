@@ -4,21 +4,26 @@ import 'package:mockito/mockito.dart';
 import 'package:montageapp/core/error/failure.dart';
 import 'package:montageapp/core/use_case/no_params.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
+import 'package:montageapp/features/random_user/domain/use_case/save_user.dart';
 import 'package:montageapp/features/random_user/presentation/bloc/user_bloc.dart';
 
 import '../../../core/dataset/test_data.dart';
 
 class MockGetUser extends Mock implements GetUser {}
 
+class MockSaveUser extends Mock implements SaveUser {}
+
 class RandomFailure extends Failure {}
 
 void main() {
   UserBloc bloc;
   MockGetUser mockGetUser;
+  MockSaveUser mockSaveUser;
 
   setUp(() {
     mockGetUser = MockGetUser();
-    bloc = UserBloc(user: mockGetUser);
+    mockSaveUser = MockSaveUser();
+    bloc = UserBloc(getUser: mockGetUser, saveUser: mockSaveUser);
   });
 
   test('Initial bloc state should be [Empty]', () {

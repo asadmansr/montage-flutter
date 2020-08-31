@@ -3,6 +3,7 @@ part of 'user_bloc.dart';
 @immutable
 abstract class UserEvent extends Equatable {
   final List properties;
+
   UserEvent([this.properties = const <dynamic>[]]);
 
   @override
@@ -10,3 +11,12 @@ abstract class UserEvent extends Equatable {
 }
 
 class GetUserEvent extends UserEvent {}
+
+class SaveUserEvent extends UserEvent {
+  final User user;
+
+  SaveUserEvent(this.user);
+
+  @override
+  List<Object> get props => [this.user];
+}

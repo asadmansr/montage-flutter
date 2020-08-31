@@ -11,6 +11,7 @@ class Loading extends UserState {}
 
 class Loaded extends UserState {
   final User user;
+
   Loaded({@required this.user});
 
   @override
@@ -19,8 +20,11 @@ class Loaded extends UserState {
 
 class Error extends UserState {
   final String message;
+
   Error({@required this.message});
 
   @override
   List<Object> get props => [this.message];
 }
+
+class Saved extends UserState {}
