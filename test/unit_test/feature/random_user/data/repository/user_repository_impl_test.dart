@@ -110,4 +110,21 @@ void main() {
       expect(result, Left(NoNetworkFailure()));
     });
   });
+
+  group('should be able to save a new user', () {
+    test('should call save user in local data source when saving new user',
+        () async {
+      when(mockLocalDataSource.saveUser(any)).thenAnswer((_) async => null);
+      userRepository.saveUser(tMaleUserModel);
+      verify(mockLocalDataSource.saveUser(tMaleUserModel));
+    });
+
+    test('should return valid cache failure when cache exception is thrown',
+        () async {
+      when(mockLocalDataSource.saveUser(any)).thenThrow(CacheException());
+      final result = await userRepository.saveUser(tMaleUserModel);
+      verify(mockLocalDataSource.saveUser(tMaleUserModel));
+      expect(result, equals(Left(CacheFailure())));
+    });
+  });
 }
