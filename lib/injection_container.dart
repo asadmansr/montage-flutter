@@ -9,8 +9,13 @@ import 'package:montageapp/features/random_user/data/repository/user_repository_
 import 'package:montageapp/features/random_user/domain/repository/user_repository.dart';
 import 'package:montageapp/features/random_user/domain/use_case/get_user.dart';
 import 'package:montageapp/features/random_user/presentation/bloc/user_bloc.dart';
+import 'package:montageapp/features/user_detail/domain/use_case/delete_user.dart';
 
 import 'features/random_user/domain/use_case/save_user.dart';
+import 'features/user_detail/data/data_source/user_detail_data_source.dart';
+import 'features/user_detail/data/repository/user_detail_repository_impl.dart';
+import 'features/user_detail/domain/repository/user_detail_repository.dart';
+import 'features/user_detail/presentation/bloc/user_detail_bloc.dart';
 import 'features/user_list/data/data_source/user_list_local_data_source.dart';
 import 'features/user_list/data/repository/user_list_repository_impl.dart';
 import 'features/user_list/domain/repository/user_list_repository.dart';
@@ -22,10 +27,12 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerFactory(() => UserBloc(getUser: sl(), saveUser: sl()));
   sl.registerFactory(() => UserListBloc(userList: sl()));
+  sl.registerFactory(() => UserDetailBloc(deleteUser: sl()));
 
   sl.registerLazySingleton(() => GetUser(sl()));
   sl.registerLazySingleton(() => SaveUser(sl()));
   sl.registerLazySingleton(() => GetUserList(sl()));
+  sl.registerLazySingleton(() => DeleteUser(sl()));
 
   final databaseHelper = DatabaseHelper.instance;
   sl.registerLazySingleton(() => databaseHelper);
@@ -34,6 +41,8 @@ Future<void> init() async {
       networkInfo: sl(), remoteDataSource: sl(), localDataSource: sl()));
   sl.registerLazySingleton<UserListRepository>(
       () => UserListRepositoryImpl(userListLocalDataSource: sl()));
+  sl.registerLazySingleton<UserDetailRepository>(
+      () => UserDetailRepositoryImpl(userDetailLocalDataSource: sl()));
 
   sl.registerLazySingleton<UserRemoteDataSource>(
       () => UserRemoteDataSourceImpl(client: sl()));
@@ -41,6 +50,8 @@ Future<void> init() async {
       () => UserLocalDataSourceImpl(client: sl()));
   sl.registerLazySingleton<UserListLocalDataSource>(
       () => UserListLocalDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<UserDetailLocalDataSource>(
+      () => UserDetailLocalDataSourceImpl(client: sl()));
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
