@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:montageapp/core/database/database_helper.dart';
-import 'package:montageapp/features/random_user/data/model/user_model.dart';
+import 'package:montageapp/features/random_user/domain/entity/user.dart';
 
 abstract class UserDetailLocalDataSource {
-  Future<void> deleteUser(UserModel user);
+  Future<void> deleteUser(User user);
 }
 
 class UserDetailLocalDataSourceImpl implements UserDetailLocalDataSource {
@@ -12,7 +12,7 @@ class UserDetailLocalDataSourceImpl implements UserDetailLocalDataSource {
   UserDetailLocalDataSourceImpl({@required this.client});
 
   @override
-  Future<void> deleteUser(UserModel user) async {
+  Future<void> deleteUser(User user) async {
     await client.delete(user.email, user.password);
   }
 }

@@ -77,6 +77,6 @@ class DatabaseHelper {
   Future<int> delete(String email, String password) async {
     Database db = await instance.database;
     return await db.delete(table,
-        where: '$colEmail = ? AND $colPassword', whereArgs: [email, password]);
+        where: '$colEmail = ? AND $colPassword = ?', whereArgs: [email, password]);
   }
 }
