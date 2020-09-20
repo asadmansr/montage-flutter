@@ -18,6 +18,8 @@ class UserListRepositoryImpl extends UserListRepository {
       return Right(userList);
     } on CacheException {
       return Left(CacheFailure());
+    } on NoDataException {
+      return Left(NoDataFailure());
     }
   }
 }

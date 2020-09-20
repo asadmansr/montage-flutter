@@ -15,7 +15,15 @@ class NoNetworkFailure extends Failure {}
 
 class CacheFailure extends Failure {}
 
-const String SERVER_FAILURE_MESSAGE = "Server Failure";
-const String NETWORK_FAILURE_MESSAGE = "Network Failure";
-const String CACHE_FAILURE_MESSAGE = "Cache Failure";
-const String UNEXPECTED_FAILURE_MESSAGE = "Unexpected Failure";
+class NoDataFailure extends Failure {}
+
+const String SERVER_FAILURE_MESSAGE =
+    "Something went wrong. There seems to be a server failure. Please try again later.";
+const String NETWORK_FAILURE_MESSAGE =
+    "Something went wrong. There seems to be a network failure. Please try again later.";
+const String CACHE_FAILURE_MESSAGE =
+    "Something went wrong. There seems to be a cache failure. Please try again later.";
+const String UNEXPECTED_FAILURE_MESSAGE =
+    "Something went wrong. There seems to be an unexpected failure. Please try again later.";
+const String NO_DATA_FAILURE_MESSAGE =
+    "No saved user found. To add a new user, tap on the + button and generate a random user.";

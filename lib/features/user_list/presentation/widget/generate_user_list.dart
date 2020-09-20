@@ -51,9 +51,11 @@ class GenerateUserList extends StatelessWidget {
       MaterialPageRoute(builder: (context) => UserDetailPage(user: user)),
     );
 
-    final listHasChanged = result as bool;
-    if (listHasChanged) {
-      _dispatchGetListEvent(context);
+    if (result != null) {
+      final listHasChanged = result as bool;
+      if (listHasChanged) {
+        _dispatchGetListEvent(context);
+      }
     }
   }
 

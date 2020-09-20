@@ -36,6 +36,8 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     switch (failure.runtimeType) {
       case CacheFailure:
         return CACHE_FAILURE_MESSAGE;
+      case NoDataFailure:
+        return NO_DATA_FAILURE_MESSAGE;
       default:
         return UNEXPECTED_FAILURE_MESSAGE;
     }

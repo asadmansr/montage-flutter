@@ -15,7 +15,14 @@ class UserListLocalDataSourceImpl implements UserListLocalDataSource {
   @override
   Future<List<User>> getUserList() async {
     final userList = List<User>();
-    final allRows = await client.queryAllRows();
+    List<Map<String, dynamic>> allRows;
+
+    try {
+      allRows = await client.queryAllRows();
+    } catch (_) {
+      throw CacheException();
+    }
+
     allRows.forEach((row) {
       final user = User(
           name: row.values.elementAt(1),
@@ -27,10 +34,11 @@ class UserListLocalDataSourceImpl implements UserListLocalDataSource {
           imgUrl: row.values.elementAt(7));
       userList.add(user);
     });
-    if (userList.isNotEmpty) {
-      return Future.value(userList);
+
+    if (userList.isEmpty) {
+      throw NoDataException();
     } else {
-      throw CacheException();
+      return Future.value(userList);
     }
   }
 }

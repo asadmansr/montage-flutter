@@ -53,5 +53,17 @@ void main() {
       verify(mockUserListLocalDataSource.getUserList());
       expect(result, equals(Left(CacheFailure())));
     });
+
+    test(
+        'Should return a no data failure when cache data source throws a no data exception',
+        () async {
+      when(mockUserListLocalDataSource.getUserList())
+          .thenThrow(NoDataException());
+
+      final result = await userListRepositoryImpl.getUserList();
+
+      verify(mockUserListLocalDataSource.getUserList());
+      expect(result, equals(Left(NoDataFailure())));
+    });
   });
 }

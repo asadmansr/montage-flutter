@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:montageapp/core/database/database_helper.dart';
 import 'package:montageapp/core/error/exception.dart';
 import 'package:montageapp/features/user_list/data/data_source/user_list_local_data_source.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/dataset/test_data.dart';
 
@@ -73,9 +74,18 @@ void main() {
     List<Map<String, dynamic>> emptyList = List<Map<String, dynamic>>();
     final emptyUserList = Future.value(emptyList);
 
-    test('Should return CacheException when database is empty', () async {
+    test('Should return NoDataException when database is empty', () async {
       when(mockDatabaseHelper.queryAllRows())
           .thenAnswer((_) async => Future.value(emptyUserList));
+
+      final call = userListLocalDataSourceImpl.getUserList;
+      expect(() => call(), throwsA(TypeMatcher<NoDataException>()));
+    });
+  });
+
+  group('Should return valid exception when database throws an exception', () {
+    test('Should return CacheException when database throws an exception', () async {
+      when(mockDatabaseHelper.queryAllRows()).thenThrow(DatabaseException);
 
       final call = userListLocalDataSourceImpl.getUserList;
       expect(() => call(), throwsA(TypeMatcher<CacheException>()));

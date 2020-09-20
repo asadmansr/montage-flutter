@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montageapp/core/constants/colors.dart' as Color;
 import 'package:montageapp/core/widgets/empty_display.dart';
 import 'package:montageapp/core/widgets/loading_display.dart';
+import 'package:montageapp/core/widgets/message_display.dart';
 import 'package:montageapp/features/random_user/domain/entity/user.dart';
 import 'package:montageapp/features/random_user/presentation/page/get_user_page.dart';
 import 'package:montageapp/features/user_list/presentation/bloc/user_list_bloc.dart';
@@ -25,36 +26,37 @@ class _GetUserListPageState extends State<GetUserListPage> {
 
   BlocProvider<UserListBloc> buildBody(BuildContext context) {
     return BlocProvider(
-        create: (_) => sl<UserListBloc>(),
-        child: Builder(builder: (providerContext) {
+      create: (_) => sl<UserListBloc>(),
+      child: Builder(
+        builder: (providerContext) {
           return Scaffold(
-              floatingActionButton: _fab(providerContext),
-              body: Container(
-                  color: Color.backgroundColor,
-                  child: Column(
-                    children: <Widget>[
-                      BlocBuilder<UserListBloc, UserListState>(
-                          builder: (context, state) {
-                        if (state is Loading) {
-                          return LoadingDisplay();
-                        } else if (state is Loaded) {
-                          userList = state.userList;
-                          return GenerateUserList(userList: userList);
-                        } else if (state is Error) {
-                          return EmptyDisplay();
-                        } else if (state is Refresh) {
-                          _dispatchGetListEvent(providerContext);
-                          return EmptyDisplay();
-                        } else {
-                          _dispatchGetListEvent(providerContext);
-                          return EmptyDisplay();
-                        }
-                      }),
-                    ],
-                  )
-              )
+            floatingActionButton: _fab(providerContext),
+            body: Container(
+              color: Color.backgroundColor,
+              child: Column(
+                children: <Widget>[
+                  BlocBuilder<UserListBloc, UserListState>(
+                      builder: (context, state) {
+                    if (state is Loading) {
+                      return LoadingDisplay();
+                    } else if (state is Loaded) {
+                      userList = state.userList;
+                      return GenerateUserList(userList: userList);
+                    } else if (state is Error) {
+                      return MessageDisplay(message: state.message);
+                    } else if (state is Refresh) {
+                      _dispatchGetListEvent(providerContext);
+                    } else {
+                      _dispatchGetListEvent(providerContext);
+                    }
+                    return EmptyDisplay();
+                  }),
+                ],
+              ),
+            ),
           );
-        })
+        },
+      ),
     );
   }
 
@@ -78,9 +80,11 @@ class _GetUserListPageState extends State<GetUserListPage> {
       MaterialPageRoute(builder: (context) => GetUserPage()),
     );
 
-    final listHasChanged = result as bool;
-    if (listHasChanged) {
-      _dispatchGetListEvent(context);
+    if (result != null) {
+      final listHasChanged = result as bool;
+      if (listHasChanged) {
+        _dispatchGetListEvent(context);
+      }
     }
   }
 }

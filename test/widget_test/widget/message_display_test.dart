@@ -5,9 +5,12 @@ import 'package:montageapp/core/widgets/message_display.dart';
 import '../../unit_test/core/helper/testable_widget.dart';
 
 void main() {
-  const String tServerFailure = "Server Failure";
-  const String tNetworkFailure = "Network Failure";
-  const String tUnexpectedFailure = "Unexpected Failure";
+  const String tServerFailure =
+      "Something went wrong. There seems to be a server failure. Please try again later.";
+  const String tNetworkFailure =
+      "Something went wrong. There seems to be a network failure. Please try again later.";
+  const String tUnexpectedFailure =
+      "Something went wrong. There seems to be an unexpected failure. Please try again later.";
 
   testWidgets(
       'MessageDisplay should have correct UI elements upon ServerFailure',
@@ -20,7 +23,7 @@ void main() {
 
     Text text = tester.firstWidget(find.text(tServerFailure));
     expect(text.style.color, Colors.white);
-    expect(text.style.fontSize, 25);
+    expect(text.style.fontSize, 18);
     expect(text.textAlign, TextAlign.center);
   });
 
@@ -35,7 +38,7 @@ void main() {
 
     Text text = tester.firstWidget(find.text(tNetworkFailure));
     expect(text.style.color, Colors.white);
-    expect(text.style.fontSize, 25);
+    expect(text.style.fontSize, 18);
     expect(text.textAlign, TextAlign.center);
   });
 
@@ -50,7 +53,7 @@ void main() {
 
     Text text = tester.firstWidget(find.text(tUnexpectedFailure));
     expect(text.style.color, Colors.white);
-    expect(text.style.fontSize, 25);
+    expect(text.style.fontSize, 18);
     expect(text.textAlign, TextAlign.center);
   });
 }
