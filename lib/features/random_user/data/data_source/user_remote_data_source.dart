@@ -11,7 +11,7 @@ abstract class UserRemoteDataSource {
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final _url = 'https://randomuser.me/api/';
-  final _param = "?nat=au,br,ca,ch,de,dk,fi,fr,gb,ei,nl,nz,us";
+  final _param = "?nat=au,br,ca,ch,de,dk,fi,fr,gb,nl,nz,us";
   final _headers = {'Content-Type': 'application/json'};
   final http.Client client;
 

@@ -33,23 +33,33 @@ class UserDetailPage extends StatelessWidget {
                     })
               ],
             ),
-            body: Container(
-              color: Color.backgroundColor,
-              child: Column(
-                children: <Widget>[
-                  BlocListener<UserDetailBloc, UserDetailState>(
-                    listener: (BuildContext context, UserDetailState state) {
-                      if (state is Deleted) {
-                        _navigateBack(context);
-                      }
-                    },
-                    child: BlocBuilder<UserDetailBloc, UserDetailState>(
-                      builder: (context, state) {
-                        return GenerateUserDetailPage(user: user);
-                      },
+            body: SizedBox.expand(
+              child: Container(
+                color: Color.backgroundColor,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: ScrollPhysics(),
+                  child: Container(
+                    color: Color.backgroundColor,
+                    child: Column(
+                      children: <Widget>[
+                        BlocListener<UserDetailBloc, UserDetailState>(
+                          listener:
+                              (BuildContext context, UserDetailState state) {
+                            if (state is Deleted) {
+                              _navigateBack(context);
+                            }
+                          },
+                          child: BlocBuilder<UserDetailBloc, UserDetailState>(
+                            builder: (context, state) {
+                              return GenerateUserDetailPage(user: user);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           );

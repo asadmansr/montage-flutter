@@ -22,7 +22,7 @@ void main() {
           makeTestableWidget(child: GenerateUserDisplay(user: tUserA)));
 
       expect(find.byType(CircleAvatar), findsOneWidget);
-      expect(find.byType(TextFormField), findsNWidgets(2));
+      expect(find.byType(TextFormField), findsNWidgets(5));
     });
 
     testWidgets('UserA should have correct values for textForm',
@@ -53,7 +53,7 @@ void main() {
           makeTestableWidget(child: GenerateUserDisplay(user: tUserB)));
 
       expect(find.byType(CircleAvatar), findsOneWidget);
-      expect(find.byType(TextFormField), findsNWidgets(2));
+      expect(find.byType(TextFormField), findsNWidgets(5));
     });
 
     testWidgets('UserB should have correct values for textForm',

@@ -26,53 +26,61 @@ class _GetUserPageState extends State<GetUserPage> {
 
   BlocProvider<UserBloc> buildBody(BuildContext context) {
     return BlocProvider(
-        create: (_) => sl<UserBloc>(),
-        child: Builder(builder: (providerContext) {
+      create: (_) => sl<UserBloc>(),
+      child: Builder(
+        builder: (providerContext) {
           return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Color.backgroundColor,
-                actions: <Widget>[
-                  IconButton(
-                      icon: Icon(Icons.save),
-                      onPressed: () {
-                        _dispatchSaveUser(providerContext);
-                      })
-                ],
+            appBar: AppBar(
+              backgroundColor: Color.backgroundColor,
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.save),
+                    onPressed: () {
+                      _dispatchSaveUser(providerContext);
+                    })
+              ],
+            ),
+            body: SizedBox.expand(
+              child: Container(
+                color: Color.backgroundColor,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: ScrollPhysics(),
+                  child: Container(
+                    color: Color.backgroundColor,
+                    child: Column(
+                      children: <Widget>[
+                        BlocListener<UserBloc, UserState>(
+                          listener: (BuildContext context, UserState state) {
+                            if (state is Saved) {
+                              _navigateBack();
+                            }
+                          },
+                          child: BlocBuilder<UserBloc, UserState>(
+                              builder: (context, state) {
+                            if (state is Loading) {
+                              return LoadingDisplay();
+                            } else if (state is Loaded) {
+                              user = state.user;
+                              return GenerateUserDisplay(user: state.user);
+                            } else if (state is Error) {
+                              return MessageDisplay(message: state.message);
+                            } else {
+                              _dispatchGetUser(providerContext);
+                            }
+                            return EmptyDisplay();
+                          }),
+                        ),
+                        new GenerateUserControl()
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              body: Container(
-                  color: Color.backgroundColor,
-                  child: Column(
-                    children: <Widget>[
-                      BlocListener<UserBloc, UserState>(
-                        listener: (BuildContext context, UserState state) {
-                          if (state is Saved) {
-                            _navigateBack();
-                          }
-                        },
-                        child: BlocBuilder<UserBloc, UserState>(
-                            builder: (context, state) {
-                          if (state is Loading) {
-                            return LoadingDisplay();
-                          } else if (state is Loaded) {
-                            user = state.user;
-                            return GenerateUserDisplay(user: state.user);
-                          } else if (state is Error) {
-                            return MessageDisplay(message: state.message);
-                          } else if (state is Saved) {
-                            //_navigateBack();
-                          } else {
-                            _dispatchGetUser(providerContext);
-                          }
-                          return EmptyDisplay();
-                        }),
-                      ),
-                      Spacer(),
-                      new GenerateUserControl()
-                    ],
-                  )
-              )
+            ),
           );
-        })
+        },
+      ),
     );
   }
 

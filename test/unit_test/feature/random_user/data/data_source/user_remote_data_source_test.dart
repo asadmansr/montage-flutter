@@ -23,7 +23,7 @@ void main() {
   });
 
   final url =
-      'https://randomuser.me/api/?nat=au,br,ca,ch,de,dk,fi,fr,gb,ei,nl,nz,us';
+      'https://randomuser.me/api/?nat=au,br,ca,ch,de,dk,fi,fr,gb,nl,nz,us';
   final headers = {'Content-Type': 'application/json'};
 
   group('user remote data source returning successful http GET', () {

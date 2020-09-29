@@ -15,23 +15,26 @@ class GenerateUserControl extends StatefulWidget {
 class _GenerateUserControlState extends State<GenerateUserControl> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 48),
-        RawMaterialButton(
-          shape: CircleBorder(),
-          fillColor: Color.greenColor,
-          elevation: 4.0,
-          padding: EdgeInsets.all(14.0),
-          child: Icon(
-            Icons.refresh,
-            size: 24.0,
-            color: Color.whiteColor,
+    return Container(
+      color: Color.backgroundColor,
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 14),
+          RawMaterialButton(
+            shape: CircleBorder(),
+            fillColor: Color.greenColor,
+            elevation: 4.0,
+            padding: EdgeInsets.all(14.0),
+            child: Icon(
+              Icons.refresh,
+              size: 24.0,
+              color: Color.whiteColor,
+            ),
+            onPressed: _dispatchGetUser,
           ),
-          onPressed: _dispatchGetUser,
-        ),
-        SizedBox(height: 64)
-      ],
+          SizedBox(height: 24)
+        ],
+      ),
     );
   }
 
