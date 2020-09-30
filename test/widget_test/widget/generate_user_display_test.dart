@@ -19,7 +19,17 @@ void main() {
     testWidgets('UserA should have correct widgets displayed',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          makeTestableWidget(child: GenerateUserDisplay(user: tUserA)));
+        makeTestableWidget(
+          child: GenerateUserDisplay(
+            user: tUserA,
+            nameController: TextEditingController(text: tUserA.name),
+            emailController: TextEditingController(text: tUserA.email),
+            usernameController: TextEditingController(text: tUserA.userName),
+            passwordController: TextEditingController(text: tUserA.password),
+            addressController: TextEditingController(text: tUserA.address),
+          ),
+        ),
+      );
 
       expect(find.byType(CircleAvatar), findsOneWidget);
       expect(find.byType(TextFormField), findsNWidgets(5));
@@ -28,12 +38,22 @@ void main() {
     testWidgets('UserA should have correct values for textForm',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          makeTestableWidget(child: GenerateUserDisplay(user: tUserA)));
+        makeTestableWidget(
+          child: GenerateUserDisplay(
+            user: tUserA,
+            nameController: TextEditingController(text: tUserA.name),
+            emailController: TextEditingController(text: tUserA.email),
+            usernameController: TextEditingController(text: tUserA.userName),
+            passwordController: TextEditingController(text: tUserA.password),
+            addressController: TextEditingController(text: tUserA.address),
+          ),
+        ),
+      );
 
       EditableText name = tester.firstWidget(find.text(tUserA.name));
       EditableText email = tester.firstWidget(find.text(tUserA.name));
-      expect(name.readOnly, true);
-      expect(email.readOnly, true);
+      expect(name.readOnly, false);
+      expect(email.readOnly, false);
     });
   });
 
@@ -50,7 +70,17 @@ void main() {
     testWidgets('UserB should have correct widgets displayed',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          makeTestableWidget(child: GenerateUserDisplay(user: tUserB)));
+        makeTestableWidget(
+          child: GenerateUserDisplay(
+            user: tUserB,
+            nameController: TextEditingController(text: tUserB.name),
+            emailController: TextEditingController(text: tUserB.email),
+            usernameController: TextEditingController(text: tUserB.userName),
+            passwordController: TextEditingController(text: tUserB.password),
+            addressController: TextEditingController(text: tUserB.address),
+          ),
+        ),
+      );
 
       expect(find.byType(CircleAvatar), findsOneWidget);
       expect(find.byType(TextFormField), findsNWidgets(5));
@@ -59,12 +89,22 @@ void main() {
     testWidgets('UserB should have correct values for textForm',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          makeTestableWidget(child: GenerateUserDisplay(user: tUserB)));
+        makeTestableWidget(
+          child: GenerateUserDisplay(
+            user: tUserB,
+            nameController: TextEditingController(text: tUserB.name),
+            emailController: TextEditingController(text: tUserB.email),
+            usernameController: TextEditingController(text: tUserB.userName),
+            passwordController: TextEditingController(text: tUserB.password),
+            addressController: TextEditingController(text: tUserB.address),
+          ),
+        ),
+      );
 
       EditableText name = tester.firstWidget(find.text(tUserB.name));
       EditableText email = tester.firstWidget(find.text(tUserB.name));
-      expect(name.readOnly, true);
-      expect(email.readOnly, true);
+      expect(name.readOnly, false);
+      expect(email.readOnly, false);
     });
   });
 }

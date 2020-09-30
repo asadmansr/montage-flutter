@@ -18,10 +18,25 @@ class GetUserPage extends StatefulWidget {
 
 class _GetUserPageState extends State<GetUserPage> {
   User user;
+  TextEditingController nameController;
+  TextEditingController emailController;
+  TextEditingController usernameController;
+  TextEditingController passwordController;
+  TextEditingController addressController;
 
   @override
   Widget build(BuildContext context) {
     return buildBody(context);
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    addressController.dispose();
+    super.dispose();
   }
 
   BlocProvider<UserBloc> buildBody(BuildContext context) {
@@ -62,7 +77,26 @@ class _GetUserPageState extends State<GetUserPage> {
                               return LoadingDisplay();
                             } else if (state is Loaded) {
                               user = state.user;
-                              return GenerateUserDisplay(user: state.user);
+
+                              nameController =
+                                  TextEditingController(text: user.name);
+                              emailController =
+                                  TextEditingController(text: user.email);
+                              usernameController =
+                                  TextEditingController(text: user.userName);
+                              passwordController =
+                                  TextEditingController(text: user.password);
+                              addressController =
+                                  TextEditingController(text: user.address);
+
+                              return GenerateUserDisplay(
+                                user: state.user,
+                                nameController: nameController,
+                                emailController: emailController,
+                                usernameController: usernameController,
+                                passwordController: passwordController,
+                                addressController: addressController,
+                              );
                             } else if (state is Error) {
                               return MessageDisplay(message: state.message);
                             } else {
@@ -89,7 +123,15 @@ class _GetUserPageState extends State<GetUserPage> {
   }
 
   void _dispatchSaveUser(BuildContext providerContext) {
-    BlocProvider.of<UserBloc>(providerContext).add(SaveUserEvent(user));
+    final modifiedUser = User(
+        name: nameController.text,
+        email: emailController.text,
+        userName: usernameController.text,
+        password: passwordController.text,
+        address: addressController.text,
+        gender: user.gender,
+        imgUrl: user.imgUrl);
+    BlocProvider.of<UserBloc>(providerContext).add(SaveUserEvent(modifiedUser));
   }
 
   void _navigateBack() {
