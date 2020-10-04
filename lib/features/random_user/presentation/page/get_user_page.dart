@@ -31,11 +31,11 @@ class _GetUserPageState extends State<GetUserPage> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    addressController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    usernameController?.dispose();
+    passwordController?.dispose();
+    addressController?.dispose();
     super.dispose();
   }
 
@@ -124,13 +124,13 @@ class _GetUserPageState extends State<GetUserPage> {
 
   void _dispatchSaveUser(BuildContext providerContext) {
     final modifiedUser = User(
-        name: nameController.text,
-        email: emailController.text,
-        userName: usernameController.text,
-        password: passwordController.text,
-        address: addressController.text,
-        gender: user.gender,
-        imgUrl: user.imgUrl);
+        name: nameController?.text,
+        email: emailController?.text,
+        userName: usernameController?.text,
+        password: passwordController?.text,
+        address: addressController?.text,
+        gender: user?.gender,
+        imgUrl: user?.imgUrl);
     BlocProvider.of<UserBloc>(providerContext).add(SaveUserEvent(modifiedUser));
   }
 

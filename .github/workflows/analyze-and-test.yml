@@ -40,4 +40,5 @@ jobs:
       # Download project dependencies and run analyze with coverage
       - run: flutter pub get
       - run: flutter test --coverage
+      - run: lcov --remove coverage/lcov.info 'lib/injection_container.dart' 'lib/core/database/*' -o coverage/lcov.info
       - run: genhtml coverage/lcov.info -o coverage/html
